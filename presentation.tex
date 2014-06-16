@@ -77,6 +77,86 @@ $$X^l=\{\langle x_i,y_i \rangle |x_i \in X', y_i=y^*(x_i),1\le i \le l\}$$
 	\end{equation*}
 \end{frame}
 
+\section{Методы классификации}
+\subsection{Логистическая регрессия}
+\begin{frame}
+\frametitle{Логистическая регрессия}
+При использовании метода логистичекой регрессии строится линейный алгоритм вида
+$$a(x,\omega)=sign\left(\sum\limits_{i=1}^M\omega_j x_j-\omega_0\right)=sign\left(\langle x,\omega \rangle\right),$$ где $\langle x,\omega \rangle$ - скалярное произведение векторов $x$ и $\omega$.
+\newline
+\newline
+Задача обучения логистической регрессии сводится к настройке вектора весов $\omega\in \mathbb{R}^M$ по выборке $X^l$.
+\end{frame}
+
+\begin{frame}
+\frametitle{Обучение логистической регрессии}
+Задача обучения логистической регрессии решается при помощи метода минимизации эмпирического риска с функцией потерь следующего вида:
+$$Q(\omega, X^l)=\sum\limits_{i=1}^l ln(1+exp(-y_i\langle x_i,\omega \rangle))\rightarrow \min\limits_{\omega}$$
+Вычислим частные производные функции потерь:
+$$\frac{\partial Q}{\partial \omega_j}=\sum\limits_{y^*(x_i)=+1}\frac{x_{ij}}{1+exp(\langle x_i,\omega\rangle)}+\sum\limits_{y^*(x_i)=-1}\frac{-x_{ij}}{1+exp(\langle x_i,\omega\rangle)}$$
+Получение явных выражений для величин $\omega_j$ из условий $\frac{\partial Q}{\partial \omega_j}=0, j=1..M$ к сожалению, невозможно. Для получения приближенного решения задачи используется метод стохастического градиентного спуска.
+\end{frame}
+
+\begin{frame}
+\frametitle{Модификации метода логистической регрессии}
+\begin{itemize}
+	\item{Стратификация\newline 
+		На каждом шаге метода стохастического градиентного спуска используются два объекта – один,
+		принадлежащий положительному классу, а второй – отрицательному.
+	}
+	\item{Модификация функционала потерь}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Модификация функционала потерь метода логистической регрессии}
+	Введем смещения в функционал потерь:
+	$$Q(\omega, X^l)=\sum\limits_{i=1}^l ln(1+exp(-y_i\langle x_i,\omega \rangle +c))\rightarrow \min\limits_{\omega}$$
+	Изменятся и значения частных производных:
+	$$\frac{\partial Q}{\partial \omega_j}=\sum\limits_{y^*(x_i)=+1}\frac{x_{ij}}{1+exp(\langle x_i,\omega\rangle +c)}+\sum\limits_{y^*(x_i)=-1}\frac{-x_{ij}}{1+exp(\langle x_i,\omega\rangle +c)}$$
+	Параметр $c$ становится параметром метода и может быть выбран, к примеру, на основе скользящего контроля.
+\end{frame}
+
+\begin{frame}
+\frametitle{Положительный эффект от введения смещений}
+Приведем ответы решающего правила без использования смещений и с использованием смещений.
+ \begin{columns}[T]
+    \begin{column}{.5\textwidth}
+    \begin{block}{Без использования смещений}
+% Your image included here
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{/home/bocharov-ivan/Presentation/master-presentation/1.png}
+    \end{block}
+    \end{column}
+    \begin{column}{.5\textwidth}
+    \begin{block}{С использованием смещений}
+% Your image included here
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{2.png}
+    \end{block}
+    \end{column}
+  \end{columns}
+Приведенные результаты позволяют судить, что использование смещений приводит к более уверенной классификации.
+\end{frame}
+
+
+\subsection{k ближайших соседей}
+\begin{frame}
+\frametitle{Построение метода}
+Пусть на множестве $X$ введена коммутативная функция расстояния $\rho:X\times X\rightarrow[0,+\infty)$. В этом случае возможно построение разнообразных метрических методов.\\
+Для произвольного $u\in X^l$ расположим элементы обучающей выборки в порядке возрастания расстояний до $u$:
+$$\rho(u,x_u^{(1)})\le\rho(u,x_u^{(2)})\le ... \le \rho(u, x_u^{(l)})$$
+Пусть $y_u^{(i)}=a(x_u^{(i)})$. Во введенных обозначениях решающее правило метода $k$ ближайших событий принимает вид $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]$$
+\end{frame} 
+
+\begin{frame}
+\frametitle{Введение весовых коэффициентов}
+Максимум в решающем правиле метода $k$ ближайших соседей может достигаться на нескольких классах. Чтобы избежать неоднозачности, вводится строго убывающая последовательность весов $\omega_i$, задающих вклад $i$-го соседа в классификацию:
+$$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega_i$$
+При использовании в качестве весов геометрической прогрессии $\omega_i=q^i, q\in(0;1)$ неоднозначностей удается гарантированно избежать.
+\end{frame} 
+
+\section{}
+
+
 \section{}
 \begin{frame}
 \frametitle{Спасибо за внимание!}
