@@ -154,8 +154,52 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 При использовании в качестве весов геометрической прогрессии $\omega_i=q^i, q\in(0;1)$ неоднозначностей удается гарантированно избежать.
 \end{frame} 
 
-\section{}
+\section{Сокращение размерности признакового пространства}
 
+\begin{frame}
+\frametitle{Методы сокращения размерности}
+\begin{itemize}
+	\item{Отбор признаков}
+		\begin{itemize}
+		\item{Полный перебор}
+		\item{Последовательное добавление/удаление признаков}
+		\item{Кластеризация признаков}
+		\item{Генетические алгоритмы}
+		\end{itemize}
+	\item{Синтез признаков}
+		\begin{itemize}
+		\item{Метод главных компонент, PCA}
+		\item{Нейросетевой подход к синтезу признаков}
+		\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Разреженный автоэнкодер(spatial autoencoder)}
+\begin{columns}[T]
+    \begin{column}{.5\textwidth}
+    \begin{block}{Структура автоэнкодера}
+    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{/home/bocharov-ivan/Presentation/master-presentation/autoencoder.png}
+    \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Модификация автоэнкодера}
+\begin{columns}[T]
+    \begin{column}{.5\textwidth}
+    \begin{block}{Структура модифицированного автоэнкодера}
+    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{/home/bocharov-ivan/Presentation/master-presentation/modified_encoder.png}
+    \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Вычислительные эксперименты}
+\begin{frame}
+\frametitle{Эксперимент №1}
+\end{frame}
 
 \section{}
 \begin{frame}
