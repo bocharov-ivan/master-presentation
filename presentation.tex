@@ -52,12 +52,12 @@
 \begin{frame}
 \frametitle{Постановка задачи классификации}
 Пусть $X$ - множество классифицируемых объектов, а $Y$ - конечное множество классов. Имеется целевая функция - отображение $y^*:X\rightarrow Y$, значения которой известны только на конечном подмножестве объектов $X' \subset X$ обучающей выборки \\
-$$X^l=\{\langle x_i,y_i \rangle |x_i \in X', y_i=y^*(x_i),1\le i \le l\}$$
+$$X^l=\{\langle x_i,y_i \rangle |x_i \in X', y_i=y^*(x_i),1\le i \le l\}.$$
 \\Необходимо построить решающую функцию $a: X \rightarrow Y$ , принадлежащую
 некоторому классу функций $\theta$, которая была бы как можно более качественным
 приближением к целевой функции. 
 \\Методом обучения $\mu$ будем называть функцию, ставящую в соответствие любой обучающей выборке некоторую
-решающую функцию из класса $\theta: \mu(X^l)=a \in \theta$
+решающую функцию из класса $\theta: \mu(X^l)=a \in \theta.$
 \end{frame}
 
 \section{}
@@ -165,24 +165,30 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 
 \begin{frame}
 \frametitle{Разреженный автоэнкодер(spatial autoencoder)}
-\begin{columns}[T]
-    \begin{column}{.5\textwidth}
-    \begin{block}{Структура автоэнкодера}
-    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{autoencoder.png}
-    \end{block}
-    \end{column}
-  \end{columns}
+% \begin{columns}[T]
+%     \begin{column}{.5\textwidth}
+%     \begin{block}{Структура автоэнкодера}
+%     \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{autoencoder.png}
+%     \end{block}
+%     \end{column}
+%  \end{columns}
+\begin{center}
+	\includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{autoencoder.png}
+\end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Модификация автоэнкодера}
-\begin{columns}[T]
-    \begin{column}{1\textwidth}
-    \begin{block}{Структура модифицированного автоэнкодера}
-    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{modified_encoder.png}
-    \end{block}
-    \end{column}
-  \end{columns}
+% \begin{columns}[T]
+%     \begin{column}{1\textwidth}
+%     \begin{block}{Структура модифицированного автоэнкодера}
+%     \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{modified_encoder.png}
+%     \end{block}
+%     \end{column}
+%   \end{columns}
+\begin{center}
+	\includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{modified_encoder.png}
+\end{center}
 \end{frame}
 
 
@@ -232,7 +238,7 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \begin{frame}
 \frametitle{Эксперимент №1. Влияние предобработки на качество классификации}
 \begin{center}
-    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,keepaspectratio]{reuters-preprocessing.png}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,keepaspectratio, trim=4 4 4 4, clip]{reuters-preprocessing.png}
 \end{center}
 \end{frame}
 
@@ -240,16 +246,16 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \frametitle{Эксперимент №1. Влияние предобработки на качество классификации}
 \begin{columns}[T]
     \begin{column}{.5\textwidth}
-    \begin{block}{Использование стемминга}
+    %\begin{block}{Использование стемминрга}
 % Your image included here
-    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{stemming-diff.png}
-    \end{block}
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio, trim=4 4 4 4, clip]{stemming-diff.png}
+    %\end{block}
     \end{column}
     \begin{column}{.5\textwidth}
-    \begin{block}{Использование лемматизатора}
+    %\begin{block}{Использование лемматизатора}
 % Your image included here
-    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{lemmatizing-diff.png}
-    \end{block}
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio, trim=4 4 4 4, clip]{lemmatizing-diff.png}
+    %\end{block}
     \end{column}
   \end{columns}
 \end{frame}
@@ -283,21 +289,21 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \begin{frame}
 \frametitle{Эксперимент №3. Использование нейронной сети в качестве метода для синтеза признаков}
 \begin{center}
-    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{neural-reuters.png}
+    \includegraphics[width=\linewidth,height=0.8\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{neural-reuters.png}
 \end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Эксперимент №4. Сравнение типов автоэнкодеров}
 \begin{center}
-    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{autoencoder-comparison.png}
+    \includegraphics[width=\linewidth,height=0.8\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{autoencoder-comparison.png}
 \end{center}
 \end{frame}
 
 \begin{frame}
 \frametitle{Результаты применения разных методов классификации. Reuters-21578}
 \begin{center}
-    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{reuters-summary.png}
+    \includegraphics[width=\linewidth,height=0.75\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{reuters-summary.png}
 \end{center}
 \end{frame}
 
