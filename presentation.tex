@@ -1,4 +1,5 @@
 \documentclass{beamer}
+\graphicspath{ {./} }
 %математика
 \usepackage{amssymb,amsmath,mathtext}
 \usepackage{indentfirst,amsfonts}
@@ -23,7 +24,6 @@
 \begin{frame}
 	\tableofcontents
 \end{frame}
-
 
 \section{Постановка задачи классификации}
 \begin{frame}
@@ -124,7 +124,7 @@ $$\frac{\partial Q}{\partial \omega_j}=\sum\limits_{y^*(x_i)=+1}\frac{x_{ij}}{1+
     \begin{column}{.5\textwidth}
     \begin{block}{Без использования смещений}
 % Your image included here
-    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{/home/bocharov-ivan/Presentation/master-presentation/1.png}
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{1.png}
     \end{block}
     \end{column}
     \begin{column}{.5\textwidth}
@@ -179,7 +179,7 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \begin{columns}[T]
     \begin{column}{.5\textwidth}
     \begin{block}{Структура автоэнкодера}
-    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{/home/bocharov-ivan/Presentation/master-presentation/autoencoder.png}
+    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{autoencoder.png}
     \end{block}
     \end{column}
   \end{columns}
@@ -188,9 +188,9 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \begin{frame}
 \frametitle{Модификация автоэнкодера}
 \begin{columns}[T]
-    \begin{column}{.5\textwidth}
+    \begin{column}{1\textwidth}
     \begin{block}{Структура модифицированного автоэнкодера}
-    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{/home/bocharov-ivan/Presentation/master-presentation/modified_encoder.png}
+    \includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{modified_encoder.png}
     \end{block}
     \end{column}
   \end{columns}
@@ -198,8 +198,83 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 
 \section{Вычислительные эксперименты}
 \begin{frame}
-\frametitle{Эксперимент №1}
+\frametitle{Эксперимент №1. Влияние предобработки на качество классификации}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,keepaspectratio]{reuters-preprocessing.png}
+\end{center}
 \end{frame}
+
+\begin{frame}
+\frametitle{Эксперимент №1. Влияние предобработки на качество классификации}
+\begin{columns}[T]
+    \begin{column}{.5\textwidth}
+    \begin{block}{Использование стемминга}
+% Your image included here
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{stemming-diff.png}
+    \end{block}
+    \end{column}
+    \begin{column}{.5\textwidth}
+    \begin{block}{Использование лемматизатора}
+% Your image included here
+    \includegraphics[width=\linewidth,height=\textheight,keepaspectratio]{lemmatizing-diff.png}
+    \end{block}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+\frametitle{Эксперимент №2. Выбор схемы взвешивания вхождения слов в документы}
+Вес слова вычисляется как $$f(w_j,d)=\sum\limits_{d[i]=w_j}\gamma(i)$$
+Рассматриваются следующие функции:
+\begin{itemize}
+	\item{константный вес: $\gamma(i)=const$;}
+	\item{линейно убывающий вес: $\gamma(i)=-\frac{1}{x_{max}}i+b$;}
+	\item{гиперболический вес: $\gamma(i)=\frac{k_1}{i}$;}
+	\item{вес-"сигмоида": $\gamma(i)=\frac{1+e^{-k_1*k_2}}{1+e^{-k_1*(k_2+1-i)}}$.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Эксперимент №2. Выбор схемы взвешивания вхождения слов в документы}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center, trim=4 4 4 4, clip, keepaspectratio]{weighting.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Эксперимент №2. Выбор схемы взвешивания вхождения слов в документы}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{lin-sigm-diff.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Эксперимент №3. Использование нейронной сети в качестве метода для синтеза признаков}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{neural-reuters.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Эксперимент №4. Сравнение типов автоэнкодеров}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{autoencoder-comparison.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\frametitle{Результаты применения разных методов классификации. Reuters-21578}
+\begin{center}
+    \includegraphics[width=\linewidth,height=0.7\textheight,align=\center,trim=4 4 4 4, clip, keepaspectratio]{reuters-summary.png}
+\end{center}
+\end{frame}
+
+\section{}
+\begin{frame}
+\frametitle{Результаты}
+\end{frame}
+
+
 
 \section{}
 \begin{frame}
