@@ -30,6 +30,10 @@
 
 \section{Цели и задачи}
 \begin{frame}
+	\tableofcontents[currentsection]
+\end{frame}
+
+\begin{frame}
 \frametitle{Цель работы}
 \textbf{Цель работы:} повышение качества автоматической классификации текстов на естественных языках с применением методов машинного обучения.\\
 \end{frame}
@@ -49,6 +53,10 @@
 \end{frame}
 
 \section{Постановка задачи классификации}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
 \begin{frame}
 \frametitle{Постановка задачи классификации}
 Пусть $X$ - множество классифицируемых объектов, а $Y$ - конечное множество классов. Имеется целевая функция - отображение $y^*:X\rightarrow Y$, значения которой известны только на конечном подмножестве объектов $X' \subset X$ обучающей выборки \\
@@ -73,7 +81,7 @@ $$x_j=f(d_j,w_i)$$
 \section{}
 \begin{frame}
 \frametitle{Признаковое описание документа}
-В данной работе используется модифицированная схема выбора весов для слова, явно учитывающая положение слова в текста. Пусть $d[i]$ - это слово, находящееся в документе $d$ на позиции $i$. Тогда вес слова вычисляется по формуле:
+В данной работе предлагается модифицированная схема выбора весов для слова, явно учитывающая положение вхождений слова в документ. Пусть $d[i]$ - это слово, находящееся в документе $d$ на позиции $i$. Тогда вес слова вычисляется по формуле:
 $$f(w_j,d)=\sum\limits_{d[i]=w_j}\gamma(i),$$
 где функция $\gamma:\mathbb{N}\rightarrow\mathbb{R}_+$-это некоторая функция одного аргумента.\\
 Примеры:
@@ -87,6 +95,10 @@ $$f(w_j,d)=\sum\limits_{d[i]=w_j}\gamma(i),$$
 
 \section{Методы классификации}
 \subsection{Логистическая регрессия}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
 \begin{frame}
 \frametitle{Логистическая регрессия}
 При использовании метода логистичекой регрессии строится линейная решающая функция вида:
@@ -117,9 +129,9 @@ $$\frac{\partial Q}{\partial \omega_j}=\sum\limits_{y^*(x_i)=+1}\frac{x_{ij}}{1+
 
 \begin{frame}
 \frametitle{Модификация функционала потерь метода логистической регрессии}
-	Введем смещения в функционал потерь:
+	Предлагается ввести смещения в функционал потерь:
 	$$Q(\omega, X^l)=\sum\limits_{i=1}^l ln(1+exp(-y_i\langle x_i,\omega \rangle +c))\rightarrow \min\limits_{\omega}.$$
-	\\Изменятся и значения частных производных:
+	\\Изменятся значения частных производных:
 	$$\frac{\partial Q}{\partial \omega_j}=\sum\limits_{y^*(x_i)=+1}\frac{x_{ij}}{1+exp(\langle x_i,\omega\rangle +c)}+\sum\limits_{y^*(x_i)=-1}\frac{-x_{ij}}{1+exp(\langle x_i,\omega\rangle +c)}.$$
 	\\Параметр $c$ становится параметром метода и может быть выбран, к примеру, на основе скользящего контроля.
 \end{frame}
@@ -147,11 +159,15 @@ $$\frac{\partial Q}{\partial \omega_j}=\sum\limits_{y^*(x_i)=+1}\frac{x_{ij}}{1+
 
 \subsection{k ближайших соседей}
 \begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
+\begin{frame}
 \frametitle{Построение метода}
 Пусть на множестве $X$ введена коммутативная функция расстояния $\rho:X\times X\rightarrow[0,+\infty)$. В этом случае возможно построение разнообразных метрических методов.\\
 Для произвольного $u\in X^l$ расположим элементы обучающей выборки в порядке возрастания расстояний до $u$:
 $$\rho(u,x_u^{(1)})\le\rho(u,x_u^{(2)})\le ... \le \rho(u, x_u^{(l)}).$$
-Пусть $y_u^{(i)}=a(x_u^{(i)})$. Во введенных обозначениях решающее правило метода $k$ ближайших событий принимает вид $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y],$$
+Пусть $y_u^{(i)}=a(x_u^{(i)})$. Во введенных обозначениях решающее правило метода $k$ ближайших соседей принимает вид $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y],$$
 где:
 \begin{equation*}
 	[X]=
@@ -159,7 +175,7 @@ $$\rho(u,x_u^{(1)})\le\rho(u,x_u^{(2)})\le ... \le \rho(u, x_u^{(l)}).$$
 	&1, если\ условие\ X\ выполняется,\\
 	&0, в\ противном\ случае.
 	\end{cases}
-	\end{equation*}
+\end{equation*}
 \end{frame} 
 
 \begin{frame}
@@ -169,24 +185,86 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 При использовании в качестве весов геометрической прогрессии $\omega_i=q^i, q\in(0;1)$ неоднозначностей удается гарантированно избежать. Параметр $q$ становится параметром метода и может быть определен при помощи скользящего контроля.
 \end{frame} 
 
+\subsection{Машина опорных векторов (SVM)}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
+\begin{frame}
+	\frametitle{Машина опорных векторов (SVM)}
+	SVM - линейный метод классификации. Основан на построении оптимальной разделяющей гиперплоскости.\\
+	Решающее правило метода опорных векторов: $$a(x,\omega)=sign\left(\sum\limits_{i=1}^M\omega_j x_j-\omega_0\right)=sign\left(\langle x,\omega \rangle\right),$$ где $\langle x,\omega \rangle$ - скалярное произведение векторов $x$ и $\omega$.
+	\\
+
+	Проблема построения оптимальной разделяющей гиперплоскости сводится к решению задачи квадратичного программирования:
+	\begin{equation*}
+		\begin{cases}
+			&\langle\omega,\omega\rangle\rightarrow\min, \\
+			&y_i(\langle\omega,x_i\rangle-\omega_0)\ge1, i=1,...,N
+		\end{cases}
+	\end{equation*}
+
+	
+	$$$$
+\end{frame}
+
+\begin{frame}
+	\frametitle{Оптимальная разделяющая гиперплоскость}
+	\begin{center}
+		\includegraphics[width=\linewidth,height=.7\textheight,keepaspectratio]{svm_hyperplane.png}
+	\end{center}
+\end{frame}
+
+\subsection{Деревья решений (Decision Trees, DT)}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
+\begin{frame}
+\frametitle{Бинарные деревья решений}
+Бинарное дерево решений - это алгоритм классификации, задающийся бинарным деревом $\langle E,V\rangle$, в котором каждой внутренней вершине соответствует предикат $\psi'_v:X\rightarrow\{0,1\}$, а каждой терминальной вершине соотвествутет имя класса $y_v\in Y$.
+Деревья решений обычно строятся сверху-вниз, на каждом шаге выбирая признак, разбиение по которому наилучшим в некотором смысле образом разделяет выборку.\newline\\
+Наиболее употребительные критерии:
+\begin{itemize}
+	\item{Gini impurity.}
+	\item{Критерий информативности.}
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Критерии разбиения}
+Пусть имеется $m$ классов: $Y={y_1,y_2,...,y_m}$, а величина $f_i=\frac{|Y_i|}{|Y|}$ - доля объектов $i$-го класса в некотором множестве прецедентов.\newline
+\\Во введенных обозначениях:
+\begin{itemize}
+	\item{$I_G(f)=1-\sum\limits_{i=1}^{m}{f_i}^2$ - Gini Impurity. Используется в CART-деревьях.}
+	\item{$I_E(f)=-\sum\limits_{i=1}^{m}{f_i}\log_2f_i$ - Информативность. Используется в алгоритмах ID3 и C4.5.}
+	
+\end{itemize}
+
+\end{frame}
+
 \section{Сокращение размерности признакового пространства}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
 
 \begin{frame}
 \frametitle{Методы сокращения размерности}
-\begin{itemize}
-	\item{Отбор признаков}
-		\begin{itemize}
-		\item{Полный перебор}
-		\item{Последовательное добавление/удаление признаков}
-		\item{Кластеризация признаков}
-		\item{Генетические алгоритмы}
-		\end{itemize}
-	\item{Синтез признаков}
-		\begin{itemize}
-		\item{Метод главных компонент, PCA}
-		\item{Нейросетевой подход к синтезу признаков}
-		\end{itemize}
-\end{itemize}
+	\begin{itemize}
+		\item{Отбор признаков}
+			\begin{itemize}
+			\item{Полный перебор}
+			\item{Последовательное добавление/удаление признаков}
+			\item{Кластеризация признаков}
+			\item{Генетические алгоритмы}
+			\end{itemize}
+		\item{Синтез признаков}
+			\begin{itemize}
+			\item{Метод главных компонент, PCA}
+			\item{Нейросетевой подход к синтезу признаков}
+			\end{itemize}
+	\end{itemize}\leavevmode\newline
+	\\Предлагается использовать нейронную сеть в качестве метода сокращения размерности в задаче классификации текстов.
 \end{frame}
 
 \begin{frame}
@@ -220,6 +298,10 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 
 \section{Оценка качества классификации}
 \begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
+\begin{frame}
 \frametitle{Оценка качества классификации}
 Для измерения качества предсказаний необходимо определить функционал
 качества – функцию, которая всякому набору прецедентов (пар, состоящих из
@@ -232,8 +314,6 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \end{frame}
 
 
-
-\subsection{Скользящий контроль}
 \begin{frame}
 \frametitle{Скользящий контроль}
 	Пусть имеется обучающая выборка $X^l$, метод обучения $\mu$ и некоторый функционал качества $Q$. Зафиксируем множество разбиений выборки $X^l$:
@@ -253,6 +333,10 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \end{frame}
 
 \section{Вычислительные эксперименты}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
 \begin{frame}
 \frametitle{Эксперимент №1. Влияние предобработки на качество классификации}
 \begin{center}
@@ -327,7 +411,11 @@ $$a(u; X^l, k)=\arg\max\limits_{y \in Y}\sum\limits_{i=1}^{k}[y_u^{(i)}=y]\omega
 \end{center}
 \end{frame}
 
-\section{}
+\section{Результаты}
+\begin{frame}
+	\tableofcontents[currentsection, currentsubsection]
+\end{frame}
+
 \begin{frame}
 \frametitle{Результаты}
 \begin{itemize}
